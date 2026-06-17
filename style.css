@@ -1,0 +1,418 @@
+:root {
+    color-scheme: light;
+    --header-bg-color: #002060;
+    --header-color: #ffffff;
+    --bg-color: #ffffff;
+    --text-color: #1a1a1b;
+    --accent-color: #002060;
+    --header-height: 4rem;
+
+    --card-bg-color: #ffffff;
+    --border-color: #e0e4e8;
+
+    /*スクロールバー*/
+    --scrollbar-track: #f1f1f1;
+    --scrollbar-thumb: #c1c1c1;
+    --scrollbar-thumb-hover: #a8a8a8;
+}
+
+body.dark-mode {
+    color-scheme: dark;
+    --bg-color: #0f172a;
+    --text-color: #f1f5f9;
+    --card-bg-color: #1e293b;
+    --border-color: #334155;
+
+    /*スクロールバー*/
+    --scrollbar-track: #0f172a;
+    --scrollbar-thumb: #475569;
+    --scrollbar-thumb-hover: #64748b;
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--scrollbar-track);
+}
+::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thumb);
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--scrollbar-thumb-hover);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 16px;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    overflow-x: hidden;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* サイドバー (ハンバーガーメニュー) */
+.nav {
+    width: 250px;
+    background-color: var(--card-bg-color);
+    border-right: 1px solid var(--border-color);
+    box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
+    margin-left: -250px;
+    transition: margin-left 0.4s ease;
+    flex-shrink: 0;
+    z-index: 1000;
+}
+
+.nav.active {
+    margin-left: 0;
+}
+
+.nav-list {
+    margin: 0;
+    padding: 20px 0 0;
+    list-style: none;
+}
+
+.nav-item {
+    padding: 0 20px;
+}
+
+.nav-link {
+    display: block;
+    padding: 15px 0;
+    color: var(--text-color);
+    text-decoration: none;
+    border-bottom: 1px solid var(--border-color);
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.nav-link:hover {
+    color: var(--accent-color);
+}
+
+.login-btn-nav {
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    font-family: inherit;
+}
+
+/* メインコンテンツラッパー */
+.main-content-wrapper {
+    flex-grow: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    transition: width 0.4s ease;
+}
+
+/* ヘッダー */
+.header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--header-height);
+    padding: 0 1.5rem;
+    background-color: var(--header-bg-color);
+    color: var(--header-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    z-index: 900;
+}
+
+.header-left, .header-right {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.theme-switch {
+    position: relative;
+    display: inline-block;
+    width: 48px;
+    height: 24px;
+    margin-right: 0.5rem;
+}
+
+.theme-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    transition: 0.4s;
+}
+
+.slider::before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4.5px;
+    bottom: 4px;
+    background-color: #ffffff;
+    border-radius: 50%;
+    transition: 0.4s;
+}
+
+input:checked + .slider {
+    background-color: #ffffff;
+}
+
+input:checked + .slider:before {
+    transform: translateX(24px);
+    background-color: var(--header-bg-color);
+}
+
+.logo {
+    height: 30px;
+    width: auto;
+    display: block;
+}
+
+/* ハンバーガーアイコン */
+.menu-button {
+    z-index: 1001;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    position: relative;
+}
+
+.line {
+    position: absolute;
+    left: 11px;
+    width: 26px;
+    height: 2px;
+    background-color: var(--header-color);
+    transition: all 0.4s;
+}
+
+.line:nth-of-type(1) { top: 16px; }
+.line:nth-of-type(2) { top: 24px; }
+.line:nth-of-type(3) { top: 32px; }
+
+.menu-button.active .line:nth-of-type(1) { transform: translateY(8px) rotate(-45deg); }
+.menu-button.active .line:nth-of-type(2) { opacity: 0; }
+.menu-button.active .line:nth-of-type(3) { transform: translateY(-8px) rotate(45deg); }
+
+.clock {
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+    letter-spacing: 0.05rem;
+    font-weight: bold;
+    color: var(--header-color);
+}
+
+/* メインエリア (基本はスマホ向けに縦並び) */
+.content-area {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 1600px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* 24h平均セクション */
+.stats-section {
+    width: 100%;
+}
+
+.stats-section h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.3rem;
+    color: var(--text-color);
+    border-bottom: 2px solid var(--border-color);
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 1rem;
+}
+
+.stat-card {
+    background-color: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.stat-card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+}
+
+.stat-card h3 {
+    font-size: 1rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.stat-card p {
+    font-size: 0.9rem;
+    margin-bottom: 0.3rem;
+    color: var(--text-color);
+}
+
+.sensor-val {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    font-size: 1rem;
+    color: var(--text-color);
+}
+
+/* グラフセクション */
+.chart-section {
+    width: 100%;
+    flex-grow: 1;
+}
+
+.chart-block {
+    position: relative;
+    height: 50vh;
+    min-height: 400px;
+    width: 100%;
+    background-color: var(--card-bg-color);
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02);
+    transition: background-color 0.3s;
+}
+
+/* -------------------------------------------
+   PC・タブレット向け：レイアウトを左右2カラム化
+-------------------------------------------- */
+@media screen and (min-width: 1024px) {
+    .content-area {
+        flex-direction: row;      /* 左右並びに変更 */
+        align-items: flex-start;  /* 上揃え */
+        gap: 2rem;
+    }
+
+    .stats-section {
+        width: 240px;             /* 左側メニューの横幅を固定 */
+        flex-shrink: 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr; /* 24h平均カードをきれいな縦一列に */
+        max-height: calc(100vh - 10rem); /* 画面からはみ出る場合はスクロール可能に */
+        overflow-y: auto;
+        padding-right: 5px;
+        scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
+        scrollbar-width: thin;
+    }
+
+    .chart-section {
+        width: calc(100% - 260px); /* 全体の残り幅をすべてグラフに割り当て */
+    }
+
+    .chart-block {
+        height: 85vh;             /* メイングラフを縦・横ともに大きく表示 */
+    }
+}
+
+/* 🛠 追加: Y軸コントロールUIのスタイル */
+.chart-controls {
+    display: flex;
+    gap: 1.5rem;
+    margin-top: 1rem;
+    background-color: var(--card-bg-color);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    align-items: center;
+    width: fit-content; /* コンテンツの幅に合わせる */
+    transition: background-color 0.3s;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+}
+
+.control-group label {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    font-weight: bold;
+}
+
+.control-group input {
+    width: 65px;
+    padding: 0.3rem;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    text-align: center;
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+}
+
+.control-group span {
+    font-size: 0.9rem;
+    color: var(--text-color);
+    opacity: 0.8;
+}
+
+/*ダークモードのブラウザ対応*/
+.control-group input::-webkit-inner-spin-button,
+.control-group input::-webkit-outer-spin-button {
+    -webkit-appearance: inner-spin-button !important;
+    background-color: transparent;
+}
+
+body.dark-mode .control-group input::-webkit-inner-spin-button,
+body.dark-mode .control-group input::-webkit-outer-spin-button {
+    filter: invert(1) hue-rotate(180deg);
+}
+
+/* モバイル特有の調整 */
+@media screen and (max-width: 768px) {
+    .nav {
+        position: fixed;
+        height: calc(100vh - var(--header-height));
+        top: var(--header-height);
+        left: 0;
+        margin-left: -250px;
+    }
+    .content-area {
+        padding: 1rem;
+    }
+}

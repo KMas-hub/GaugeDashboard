@@ -124,11 +124,11 @@ loginBtn.addEventListener('click', async () => {
 onAuthStateChanged(auth, (user) => {
     if (user) {
         if (mainContent) mainContent.style.display = 'flex'; 
-        loginBtn.textContent = "ログアウト";
+        loginBtn.textContent = "Logout";
         startFetchingData(); 
     } else {
         if (mainContent) mainContent.style.display = 'none';
-        loginBtn.textContent = "ログイン";
+        loginBtn.textContent = "Login";
     }
 });
 

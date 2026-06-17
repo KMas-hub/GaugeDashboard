@@ -4,7 +4,6 @@
     --header-color: #ffffff;
     --bg-color: #ffffff;
     --text-color: #1a1a1b;
-    --accent-color: #002060;
     --header-height: 4rem;
 
     --card-bg-color: #ffffff;
@@ -72,7 +71,7 @@ body {
     margin-left: -250px;
     transition: margin-left 0.4s ease;
     flex-shrink: 0;
-    z-index: 1000;
+    z-index: 100;
 }
 
 .nav.active {
@@ -100,7 +99,7 @@ body {
 }
 
 .nav-link:hover {
-    color: var(--accent-color);
+    color: var(--border-color);
 }
 
 .login-btn-nav {

@@ -45,15 +45,25 @@ setInterval(() => {
 document.addEventListener('DOMContentLoaded', () => {
     const hamburger = document.querySelector('.menu-button');
     const nav = document.getElementById('nav-menu');
+    const overlay = document.getElementById('overlay');
 
-    if(hamburger && nav) {
+    if(hamburger && nav && overlay) {
         hamburger.addEventListener('click', () => {
             hamburger.classList.toggle('active');
             nav.classList.toggle('active');
+            overlay.classList.toggle('active');
             const isOpen = hamburger.classList.contains('active');
             hamburger.setAttribute('aria-expanded', isOpen);
             nav.setAttribute('aria-hidden', !isOpen);
         });
+
+        overlay.addEventListener('click', () => {
+            hamburger.classList.remove('active');
+            nav.classList.remove('active');
+            overlay.classList.remove('active');
+            hamburger.setAttribute('aria-expanded', false);
+            nav.setAttribute('aria-hidden', true);
+        })
     }
 
     const yMinInput = document.getElementById('y-min');
@@ -98,8 +108,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('theme', 'light');
             }
 
-            if(sensorDataLog.length > 0) {
-                drawMultiChart();
+            if(typeof sensorDataLog !== 'undefined' && sensorDataLog.length > 0) {
+                if(typeof drawMultiChart === 'function') drawMultiChart();
             }
         });
     }

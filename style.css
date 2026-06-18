@@ -69,9 +69,9 @@ body {
     border-right: 1px solid var(--border-color);
     box-shadow: 2px 0 4px rgba(0, 0, 0, 0.05);
     margin-left: -250px;
-    transition: margin-left 0.4s ease;
+    transition: margin-left 0.4s ease, transfrom 0.4s ease;
     flex-shrink: 0;
-    z-index: 100;
+    z-index: 1000;
 }
 
 .nav.active {
@@ -112,6 +112,24 @@ body {
     font-family: inherit;
 }
 
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
 /* メインコンテンツラッパー */
 .main-content-wrapper {
     flex-grow: 1;
@@ -131,6 +149,8 @@ body {
     background-color: var(--header-bg-color);
     color: var(--header-color);
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
     z-index: 900;
 }
 
@@ -406,10 +426,40 @@ body.dark-mode .control-group input::-webkit-outer-spin-button {
 @media screen and (max-width: 768px) {
     .nav {
         position: fixed;
-        height: calc(100vh - var(--header-height));
-        top: var(--header-height);
+        top: 0;
         left: 0;
+        height: 100vh;
+        height: 100dvh;
         margin-left: -250px;
+        transform: translateX(-100%);
+    }
+    .nav.active {
+        transform: translateX(0);
+    }
+    .nav:not(.active) {
+        margin-left: 0;
+        transform: translateX(-100%);
+    }
+    .header {
+        padding: 0 1rem;
+    }
+    .heaser-left, .header-right {
+        gap: 0.5rem;
+    }
+    .clock {
+        font-size: 0.95;
+    }
+    .content-area {
+        padding: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .clock {
+        display: none;
+    }
+    .logo {
+        height: 24px;
     }
     .content-area {
         padding: 1rem;

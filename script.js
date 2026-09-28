@@ -147,7 +147,7 @@ onAuthStateChanged(auth, (user) => {
 const VALID_MIN_TEMP = -10;
 const VALID_MAX_TEMP = 60;
 //相対的な閾値
-const SPIKE_THRESHOLD = 3.0;
+const SPIKE_THRESHOLD = 2.5;
 
 function cleanData(dataLog) {
     // 1. 第一段階：絶対的な範囲外の数値を null にする
